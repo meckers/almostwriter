@@ -1,0 +1,57 @@
+#char-matrix {
+    width: 640px;
+    height: 640px;
+}
+
+div.char-cell {
+    width: 16px;
+    height: 16px;
+    /*background-position: -0px -16px;*/
+    float:left;
+}
+
+#scroller {
+    position: relative;
+    background-color:black;
+    border: 1px solid red;
+    width: 640px;
+    height: 160px;
+    overflow: hidden;
+}
+
+#scroller .text {
+    color: white;
+    font-size: 100px;
+}
+
+.font-cav-of-sillahc {
+    background-image: url(/public/images/cav_of_sillahc_x2_anim.png);
+}
+
+.color-white {
+    background-color: #fff;
+}
+
+.color-yellow {
+    background-color: yellow;
+}
+
+.color-lightbrown {
+    background-color: #C49B39;
+}
+
+.color-darkbrown {
+    background-color: #8C6508;
+}
+
+.color-pink {
+    background-color: #FF8C8C;
+}
+
+.color-darkgrey {
+    background-color: #525252;
+}
+
+.color-mediumgrey {
+    background-color: #8A8A8A;
+}

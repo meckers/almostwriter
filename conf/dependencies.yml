@@ -1,0 +1,9 @@
+require:
+    - play
+    - commons-io -> commons-io 2.0.1:
+          force: true
+    - org.lightcouch -> lightcouch 0.0.6
+    - com.google.code.gson -> gson 2.2.4:
+          force: true
+    - org.apache.commons -> commons-compress 1.1:
+          force: true

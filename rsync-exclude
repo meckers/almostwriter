@@ -1,0 +1,7 @@
+tmp/
+logs/
+public/uploads/
+server.pid
+conf/couchdb.properties
+.git/
+.idea/

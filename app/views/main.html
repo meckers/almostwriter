@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>#{get 'title' /}</title>
+        <meta charset="${_response_encoding}">
+        <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+        <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}">
+        <script data-main="/public/scripts/main.js" src="/public/scripts/lib/require.js"></script>
+        <script src="/public/scripts/lib/simple-javascript-inheritance.js"></script>
+        <script src="/public/scripts/lib/underscore-min.js"></script>
+        <script src="/public/scripts/lib/jquery-1.10.2.min.js"></script>
+        <script>
+            require.config({
+                paths: {
+                    'baseUrl': '/public/scripts'
+                }
+            });
+        </script>
+    </head>
+    <body>
+        #{doLayout /}
+    </body>
+</html>
