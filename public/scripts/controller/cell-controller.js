@@ -20,6 +20,10 @@ define(function() {
             else {
                 this.deAnimate();
             } */
+        },
+
+        setBlankSpritePosition: function(cell) {
+            $(cell.getElement()).css('background-position', '-0px -16px');
         }
 
     })

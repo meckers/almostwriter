@@ -6,10 +6,6 @@ define(['model/matrix', 'controller/cell-controller', 'lib/events'], function(Ma
         _currentCell: null,
         _currentPosition: [0,0],
 
-        _specialKeys: {
-            'right-arrow': this.moveRight
-        },
-
         init: function() {
             this._matrix = new Matrix('char-matrix');
             this._currentCell = this.findCell(0,0);
@@ -19,10 +15,10 @@ define(['model/matrix', 'controller/cell-controller', 'lib/events'], function(Ma
 
         listen: function() {
             Events.register('NORMAL-CHAR', this, _.bind(this.writeChar, this));
-            Events.register('ARROW-LEFT', this, _.bind(this.step, this, -1, 0));
-            Events.register('ARROW-UP', this, _.bind(this.step, this, 0, -1));
-            Events.register('ARROW-RIGHT', this, _.bind(this.step, this, 1, 0));
-            Events.register('ARROW-DOWN', this, _.bind(this.step, this, 0, 1));
+            Events.register('SPECIAL-KEY-ARROW-LEFT', this, _.bind(this.step, this, -1, 0));
+            Events.register('SPECIAL-KEY-ARROW-UP', this, _.bind(this.step, this, 0, -1));
+            Events.register('SPECIAL-KEY-ARROW-RIGHT', this, _.bind(this.step, this, 1, 0));
+            Events.register('SPECIAL-KEY-ARROW-DOWN', this, _.bind(this.step, this, 0, 1));
         },
 
         setup: function() {

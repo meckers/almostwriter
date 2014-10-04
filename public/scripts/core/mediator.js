@@ -16,7 +16,7 @@ define(['lib/events'], function(Events) {
                 Events.trigger('NORMAL-CHAR', strokeInfo);
             }
             else {
-                Events.trigger(strokeInfo.id, strokeInfo);
+                Events.trigger('SPECIAL-KEY-' + strokeInfo.id, strokeInfo);
             }
         }
 
