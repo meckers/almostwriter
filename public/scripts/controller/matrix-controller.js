@@ -12,7 +12,6 @@ define([
 
         init: function() {
             this._matrix = new Matrix('char-matrix');
-            this.setCurrent(0,0);
             this.listen();
             this.setup();
         },
@@ -26,11 +25,11 @@ define([
             Events.register('SPECIAL-KEY-ARROW-UP', this, _.bind(this.step, this, -1, 0));
             Events.register('SPECIAL-KEY-ARROW-RIGHT', this, _.bind(this.step, this, 0, 1));
             Events.register('SPECIAL-KEY-ARROW-DOWN', this, _.bind(this.step, this, 1, 0));
-
         },
 
         setup: function() {
             this.populateWithCells();
+            this.setCurrent(0,0);
         },
 
         findCell: function(row,col) {
@@ -65,6 +64,7 @@ define([
         populateWithCells: function() {
 
             var matrixElm = this.getMatrixElement();
+            matrixElm.innerHTML = '';
 
             this.forEachCell(function(r,c,cell) {
                 matrixElm.appendChild(cell.getElement());

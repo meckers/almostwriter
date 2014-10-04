@@ -2,17 +2,17 @@ define([
     'controller/matrix-controller',
     'controller/cell-controller',
     'controller/input-controller',
-    'controller/output-controller',
     'controller/recording-controller',
     'controller/colour-controller',
+    'lib/events',
     'core/mediator'
 ],
     function(MatrixController,
              CellController,
              InputController,
-             OutputController,
              RecordingController,
              ColourController,
+             Events,
              Mediator) {
 
 
@@ -20,6 +20,8 @@ define([
 
             init: function() {
                 this.startApp();
+                $('#start-recording').click(_.bind(this.reset, this));
+                $('#play-recording').click(_.bind(this.play, this));
             },
 
             startApp: function() {
@@ -27,9 +29,18 @@ define([
                 MatrixController.init();
                 CellController.init();
                 InputController.init();
-                OutputController.init();
                 ColourController.init();
                 RecordingController.init();
+            },
+
+            reset: function() {
+                MatrixController.setup();
+                RecordingController.clear();
+            },
+
+            play: function() {
+                MatrixController.setup();
+                RecordingController.replay();
             }
 
         };

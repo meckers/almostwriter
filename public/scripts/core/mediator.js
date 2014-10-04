@@ -11,11 +11,13 @@ define(['lib/events'], function(Events) {
             },
 
             handleKey: function(strokeInfo) {
-                if (strokeInfo.offset) {
-                    Events.trigger('NORMAL-CHAR', strokeInfo);
-                }
-                else {
-                    Events.trigger('SPECIAL-KEY-' + strokeInfo.id, strokeInfo);
+                if (strokeInfo) {
+                    if (strokeInfo.offset) {
+                        Events.trigger('NORMAL-CHAR', strokeInfo);
+                    }
+                    else {
+                        Events.trigger('SPECIAL-KEY-' + strokeInfo.id, strokeInfo);
+                    }
                 }
             }
 

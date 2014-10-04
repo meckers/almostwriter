@@ -47,7 +47,14 @@ define(['controller/animation-controller'], function(AnimationController) {
             var $elm = $(cell.getElement());
             $elm.addClass("animated");
             if ($elm.attr('orig-x') === undefined || forceSetOrigX) {
-                $elm.attr('orig-x', $elm.css('background-position-x').replace('px','')); //keep track of original background offset
+
+                var origX = 0;
+
+                var backPos = $elm.css('background-position');
+                var xPosStr = backPos.split(' ')[0].replace('px','');
+
+                $elm.attr('orig-x', xPosStr); //keep track of original background offset
+                //$elm.attr('orig-x', $elm.css('background-position-x').replace('px','')); //keep track of original background offset
             }
 
             AnimationController.startAnimation();

@@ -1,6 +1,8 @@
 #char-matrix {
     width: 640px;
     height: 640px;
+    float: left;
+    margin: 10px;
 }
 
 div.char-cell {

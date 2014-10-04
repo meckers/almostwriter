@@ -17,7 +17,9 @@ define(['lib/events'], function(Events) {
         },
 
         replay: function() {
+            this._strokeIndex = 0;
             var strokeCode = this._strokeCodes[this._strokeIndex];
+            console.log("starting from", this._strokeIndex);
             if (strokeCode) {
                 this.playStroke(strokeCode);
             }
@@ -34,6 +36,10 @@ define(['lib/events'], function(Events) {
             if (this._strokeIndex !== this._strokeCodes.length - 1) {
                 this.playStroke(this._strokeCodes[++this._strokeIndex])
             }
+        },
+
+        clear: function() {
+            this._strokeCodes = [];
         }
 
     };
