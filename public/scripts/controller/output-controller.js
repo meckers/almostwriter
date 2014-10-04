@@ -1,6 +1,6 @@
 define(['lib/events', 'controller/matrix-controller'], function(Events, KeyMap, MatrixController) {
 
-    return Class.extend({
+    return {
 
         init: function() {
             this.listen();
@@ -17,6 +17,6 @@ define(['lib/events', 'controller/matrix-controller'], function(Events, KeyMap, 
 
 
 
-    });
+    };
 
 });

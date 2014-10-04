@@ -1,6 +1,6 @@
 define(['lib/events', 'model/key-map'], function(Events, KeyMap) {
 
-    return Class.extend({
+    return {
 
         _rules: [],
 
@@ -47,6 +47,6 @@ define(['lib/events', 'model/key-map'], function(Events, KeyMap) {
             return specials.length !== 0 ? '+' + specials : '';
         }
 
-    })
+    };
 
 })

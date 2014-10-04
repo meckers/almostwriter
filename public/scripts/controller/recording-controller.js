@@ -1,5 +1,5 @@
 define(['lib/events'], function(Events) {
-    return Class.extend({
+    return {
 
         _strokeCodes: [],
         _strokeIndex: 0,
@@ -36,5 +36,5 @@ define(['lib/events'], function(Events) {
             }
         }
 
-    });
+    };
 });

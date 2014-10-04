@@ -14,7 +14,7 @@ define(function() {
 
         createCellElement: function() {
             return $(_.tmpl('#template-cell')())[0];          // note: this seems to be slower than creating the element with for example jQuery.
-        },
+        }/*,
 
         apply: function(strokeInfo) {
 
@@ -22,7 +22,7 @@ define(function() {
             var offsety = strokeInfo.offset[1] * 16;
 
             $(this._elm).css('background-position', '-' + offsety + 'px -' + offsetx + 'px');
-        }
+        }  */
 
     });
 

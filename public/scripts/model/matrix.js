@@ -34,6 +34,10 @@ define(['model/cell'], function(Cell) {
 
         getCells: function() {
             return this._cells;
+        },
+
+        getRow: function(r) {
+            return this._cells[r];
         }
 
     });

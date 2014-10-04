@@ -1,6 +1,6 @@
 define(['model/matrix', 'controller/cell-controller', 'lib/events'], function(Matrix, CellController, Events) {
 
-    return Class.extend({
+    return {
 
         _matrix: null,
         _currentCell: null,
@@ -15,10 +15,14 @@ define(['model/matrix', 'controller/cell-controller', 'lib/events'], function(Ma
 
         listen: function() {
             Events.register('NORMAL-CHAR', this, _.bind(this.writeChar, this));
-            Events.register('SPECIAL-KEY-ARROW-LEFT', this, _.bind(this.step, this, -1, 0));
-            Events.register('SPECIAL-KEY-ARROW-UP', this, _.bind(this.step, this, 0, -1));
-            Events.register('SPECIAL-KEY-ARROW-RIGHT', this, _.bind(this.step, this, 1, 0));
-            Events.register('SPECIAL-KEY-ARROW-DOWN', this, _.bind(this.step, this, 0, 1));
+            Events.register('SPECIAL-KEY-BACKSPACE', this, _.bind(this.backSpace, this));
+            Events.register('SPECIAL-KEY-INSERT', this, _.bind(this.insert, this));
+
+            Events.register('SPECIAL-KEY-ARROW-LEFT', this, _.bind(this.step, this, 0, -1));
+            Events.register('SPECIAL-KEY-ARROW-UP', this, _.bind(this.step, this, -1, 0));
+            Events.register('SPECIAL-KEY-ARROW-RIGHT', this, _.bind(this.step, this, 0, 1));
+            Events.register('SPECIAL-KEY-ARROW-DOWN', this, _.bind(this.step, this, 1, 0));
+
         },
 
         setup: function() {
@@ -29,14 +33,22 @@ define(['model/matrix', 'controller/cell-controller', 'lib/events'], function(Ma
             return this._matrix.getCells()[row][col];
         },
 
+        findCellByPosition: function(pos) {
+            return this._matrix.getCells()[pos[0]][pos[1]];
+        },
+
+        getRow: function(row) {
+            return this._matrix.getCells()[row];
+        },
+
         forEachCell: function(fn) {
 
             var cells = this._matrix.getCells();
             var height = this._matrix.getHeight();
             var width = this._matrix.getWidth();
 
-            for (r=0; r < height; r++) {
-                for (c=0; c < width; c++) {
+            for (var r=0; r < height; r++) {
+                for (var c=0; c < width; c++) {
                     fn(r, c, cells[r][c]);
                 }
             }
@@ -52,6 +64,7 @@ define(['model/matrix', 'controller/cell-controller', 'lib/events'], function(Ma
 
             this.forEachCell(function(r,c,cell) {
                 matrixElm.appendChild(cell.getElement());
+                CellController.setBlankSpritePosition(cell);
             })
         },
 
@@ -63,11 +76,29 @@ define(['model/matrix', 'controller/cell-controller', 'lib/events'], function(Ma
         },
 
         writeChar: function(strokeInfo) {
-            this._currentCell.apply(strokeInfo);
-            this.step(1, 0);
+            //this._currentCell.apply(strokeInfo);
+            CellController.applyChar(this._currentCell, strokeInfo);
+            this.step(0, 1);
         },
 
-        step: function(colMod, rowMod) {
+        atFirstCell: function() {
+            return this._currentPosition[0] == 0 && this._currentPosition[1] == 0;
+        },
+
+        backSpace: function() {
+            if (!this.atFirstCell())
+            {
+                this.step(0, -1);
+                //this.getCurrentCell().deAnimate();
+                this.pullLine();
+            }
+        },
+
+        insert: function() {
+            this.pushLine();
+        },
+
+        step: function(rowMod, colMod) {
 
             var curPos = this._currentPosition;
             var newRow = curPos[0] + rowMod;
@@ -83,7 +114,91 @@ define(['model/matrix', 'controller/cell-controller', 'lib/events'], function(Ma
             }
 
             this.setCurrent(newRow, newCol);
+        },
+
+        pullLine: function() {
+            console.log('pull');
+            try {
+                this.untilEndOfRow(_.bind(this.shiftCellsLeft, this));
+            }
+            catch (ex) {
+                console.log(ex);
+            }
+        },
+
+        pushLine: function() {
+            this.fromEndOfRow(_.bind(this.shiftCellsRight, this));
+        },
+
+        shiftCellsRight: function(i, e) {
+            if (i > this._currentPosition[1]) {
+                var pos = [this._currentPosition[0], i - 1];
+                var nextCell = this.findCellByPosition(pos);
+                CellController.copyCell(nextCell, e);
+                //cell.deAnimate();
+            }
+            else {
+                CellController.setBlankSpritePosition(e);
+            }
+        },
+
+        shiftCellsLeft: function(i, e) {
+            var pos = [this._currentPosition[0], i + 1];
+            var nextCell = this.findCellByPosition(pos);
+            if (nextCell !== undefined) {
+                CellController.copyCell(nextCell, e);
+                /*if (!nextCell.isAnimated) {
+                    e.deAnimate();
+                } */
+            }
+            else {
+                CellController.setBlankSpritePosition(e);
+            }
+        },
+
+        getCurrentCol: function() {
+            return this._currentPosition[1];
+        },
+
+        getCurrentRow: function() {
+            return this._currentPosition[0];
+        },
+
+        untilEndOfRow: function(fn) {
+            var start = this.getCurrentCol();
+            var rowN = this.getCurrentRow();
+            var row = this._matrix.getRow(rowN);
+            for (c=start; c < row.length; c++) {
+                fn(c, this.findCell(rowN, c), this);
+            }
+        },
+
+        fromEndOfRow: function(fn) {
+            var colN = this.getCurrentCol();
+            var rowN = this.getCurrentRow();
+            var start = 39;
+            var row = this._matrix.getRow(rowN);
+            for (var c=start; c > colN-1; c--) {
+                fn(c, this.findCell(rowN, c), this);
+            }
         }
 
-    });
+        /*
+        untilEndOfRow: function(fn) {
+            var start = this.currentPosition.col;
+            var row = this.rows[this.currentPosition.row];
+            for (c=start; c < row.cols.length; c++) {
+                fn(c, row.cols[c], this);
+            }
+        },
+        fromEndOfRow: function(fn) {
+            var col = this.currentPosition.col;
+            var start = this.dimensions.rowWidth - 1;
+            var row = this.rows[this.currentPosition.row];
+            for (c=start; c > col-1; c--) {
+                fn(c, row.cols[c], this);
+            }
+        }*/
+
+    };
 });

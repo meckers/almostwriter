@@ -1,41 +1,37 @@
 define([
     'controller/matrix-controller',
+    'controller/cell-controller',
     'controller/input-controller',
     'controller/output-controller',
     'controller/recording-controller',
-    'core/mediator'],
+    'controller/colour-controller',
+    'core/mediator'
+],
     function(MatrixController,
+             CellController,
              InputController,
              OutputController,
              RecordingController,
+             ColourController,
              Mediator) {
 
-                return Class.extend({
 
-                    _page : null,
-                    _matrixController : null,
-                    _inputController : null,
-                    _outputController : null,
-                    _recordingController: null,
+        return {
 
-                    init: function() {
-                        this._matrixController = new MatrixController();
-                        this._inputController = new InputController();
-                        this._outputController = new OutputController();
-                        this._recordingController = new RecordingController();
-                        Mediator.init();
-                    },
+            init: function() {
+                this.startApp();
+            },
 
-                    listen: function() {
+            startApp: function() {
+                Mediator.init();
+                MatrixController.init();
+                CellController.init();
+                InputController.init();
+                OutputController.init();
+                ColourController.init();
+                RecordingController.init();
+            }
 
-                    },
+        };
 
-                    run: function() {
-                    },
-
-                    play: function() {
-                        this._recordingController.replay();
-                    }
     });
-
-})

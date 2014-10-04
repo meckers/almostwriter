@@ -28,30 +28,30 @@ div.char-cell {
     background-image: url(/public/images/cav_of_sillahc_x2_anim.png);
 }
 
-.color-white {
+.colour-white {
     background-color: #fff;
 }
 
-.color-yellow {
+.colour-yellow {
     background-color: yellow;
 }
 
-.color-lightbrown {
+.colour-lightbrown {
     background-color: #C49B39;
 }
 
-.color-darkbrown {
+.colour-darkbrown {
     background-color: #8C6508;
 }
 
-.color-pink {
+.colour-pink {
     background-color: #FF8C8C;
 }
 
-.color-darkgrey {
+.colour-darkgrey {
     background-color: #525252;
 }
 
-.color-mediumgrey {
+.colour-mediumgrey {
     background-color: #8A8A8A;
 }

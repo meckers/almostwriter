@@ -1,5 +1,6 @@
 require(['core/almostwriter', 'core/extensions'], function(AlmostWriter) {
-    var almostWriter = new AlmostWriter();
+
+    AlmostWriter.init();
 
     play = function() {
         almostWriter.play();
