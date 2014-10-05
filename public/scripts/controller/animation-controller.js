@@ -6,9 +6,6 @@ define(function() {
         _horizontalPosition: 0,
         _animating: false,
 
-        init: function() {
-        },
-
         startAnimation: function() {
             if (!this._animating) {
                 this.doAnimation();
@@ -37,5 +34,6 @@ define(function() {
                 $(e).css('background-position-x', x);
             }, this));
         }
+
     };
 });

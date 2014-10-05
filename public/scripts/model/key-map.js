@@ -10,9 +10,11 @@ define(function() {
 
     return {
 
+        // edit keys
         '8' : StrokeInfo('BACKSPACE'),
         '8+ct' : StrokeInfo('INSERT'),
 
+        // ctrl + [1-7] changes colours
         '49+ct' : StrokeInfo('COLOUR-WHITE'),
         '50+ct' : StrokeInfo('COLOUR-YELLOW'),
         '51+ct' : StrokeInfo('COLOUR-LIGHTBROWN'),
@@ -21,17 +23,34 @@ define(function() {
         '54+ct' : StrokeInfo('COLOUR-DARKGREY'),
         '55+ct' : StrokeInfo('COLOUR-MEDIUMGREY'),
 
+        // special functions
+        '75+ct' : StrokeInfo('CLEAR-SCREEN'),
+        '192' : StrokeInfo('PAUSE'),
+
+        // animated characters
         '187+shct' : StrokeInfo('=', [7,0], true),
         '189+ct' : StrokeInfo('-', [7,2], true),
         '222+shct' : StrokeInfo('*', [7,4], true),
+        '191+shct' : StrokeInfo('*', [7,4], true),
 
-        '32' : StrokeInfo(' ', [1,0]),
-
+        // cursor movement
         '37' : StrokeInfo('ARROW-LEFT'),
         '38' : StrokeInfo('ARROW-UP'),
         '39' : StrokeInfo('ARROW-RIGHT'),
         '40' : StrokeInfo('ARROW-DOWN'),
 
+        // basic characters
+        '32' : StrokeInfo(' ', [1,0]),
+        '48' : StrokeInfo('0', [1,16]),
+        '49' : StrokeInfo('1', [1,17]),
+        '50' : StrokeInfo('2', [1,18]),
+        '51' : StrokeInfo('3', [1,19]),
+        '52' : StrokeInfo('4', [1,20]),
+        '53' : StrokeInfo('5', [1,21]),
+        '54' : StrokeInfo('6', [1,22]),
+        '55' : StrokeInfo('7', [1,23]),
+        '56' : StrokeInfo('8', [1,24]),
+        '57' : StrokeInfo('9', [1,25]),
         '65' : StrokeInfo('A', [0,1]),
         '66' : StrokeInfo('B', [0,2]),
         '67' : StrokeInfo('C', [0,3]),
@@ -65,14 +84,21 @@ define(function() {
         '52+sh' : StrokeInfo('$', [1,4]),
         '53+sh' : StrokeInfo('%', [1,5]),
         '54+sh' : StrokeInfo('&', [1,6]),
-        '191+sh' : StrokeInfo('/', [1,7]),
+        //'191+sh' : StrokeInfo('/', [1,15]),
         '56+sh' : StrokeInfo('(', [1,8]),
         '57+sh' : StrokeInfo(')', [1,9]),
         '187+sh' : StrokeInfo('=', [1,29]),
-        '220+sh' : StrokeInfo('*', [1,10]),
-        '187' : StrokeInfo('+', [1,11]),
+        '48+sh' : StrokeInfo('=', [1,29]),
+        '187+sh' : StrokeInfo('?', [1,31]),
+        '220+sh' : StrokeInfo('*', [1,10]),   // mac
+        '191+sh' : StrokeInfo('*', [1,10]),   // pc
+        //'187' : StrokeInfo('+', [1,11]),
+        '187' : StrokeInfo('?', [1,11]),
         '188' : StrokeInfo(',', [1,12]),
         '189' : StrokeInfo('-', [1,13]),
+        '190' : StrokeInfo('.', [1,14]),
+        //'191+sh' : StrokeInfo('?', [1,31]),
+        '222' : StrokeInfo('\'', [1,7]),
 
         '220+al' : StrokeInfo('€', [0,28]),
         '221+al' : StrokeInfo(']', [0,29])

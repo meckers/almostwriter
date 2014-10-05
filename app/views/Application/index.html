@@ -3,21 +3,33 @@
 
 
 
-<input type="button" id="start-recording" value="Spela in ett nytt meddelande" />
-<input type="button" id="play-recording" value="Spela upp ditt meddelande" />
-<div id="char-matrix"></div>
+<div class="content">
 
-<div id="instructions">
-    <h3>Colours:</h3>
-    <ul id="colour-list">
-        <li>ctrl+1 : white</li>
-        <li>ctrl+2 : yellow</li>
-        <li>ctrl+3 : light brown</li>
-        <li>ctrl+4 : dark brown</li>
-        <li>ctrl+5 : pink</li>
-        <li>ctrl+6 : dark grey</li>
-        <li>ctrl+7 : medium grey</li>
-    </ul>
+    <input type="button" class="button" id="toggle-music" value="Music off!" />
+    <input type="button" class="button" id="start-recording" value="Record a new message" />
+    <input type="button" class="button" id="play-recording" value="Replay current message" />
+
+    <div id="char-matrix"></div>
+
+
+    <!--input type="button" class="button" id="dump-recording" value="Dump data into console" /-->
+
+    <div id="instructions">
+        <h3>Colours:</h3>
+        <ul id="colour-list">
+            <li>ctrl+1 : white</li>
+            <li>ctrl+2 : yellow</li>
+            <li>ctrl+3 : light brown</li>
+            <li>ctrl+4 : dark brown</li>
+            <li>ctrl+5 : pink</li>
+            <li>ctrl+6 : dark grey</li>
+            <li>ctrl+7 : medium grey</li>
+        </ul>
+    </div>
+    ...that's the ctrl key even for you mac users!
+
 </div>
+
+<audio id="music" src="/public/music/formula_one.mp3" autoplay></audio>
 
 #{templates.cell /}

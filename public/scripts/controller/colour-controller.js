@@ -7,7 +7,7 @@ define(['model/matrix', 'controller/cell-controller', 'lib/events'], function(Ma
         },
 
         listen: function() {
-            Events.register('SPECIAL-KEY-COLOUR-RED', this, _.bind(this.colour, this, 'white'));
+            Events.register('SPECIAL-KEY-COLOUR-WHITE', this, _.bind(this.colour, this, 'white'));
             Events.register('SPECIAL-KEY-COLOUR-YELLOW', this, _.bind(this.colour, this, 'yellow'));
             Events.register('SPECIAL-KEY-COLOUR-LIGHTBROWN', this, _.bind(this.colour, this, 'lightbrown'));
             Events.register('SPECIAL-KEY-COLOUR-DARKBROWN', this, _.bind(this.colour, this, 'darkbrown'));

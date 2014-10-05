@@ -25,11 +25,13 @@ define([
             Events.register('SPECIAL-KEY-ARROW-UP', this, _.bind(this.step, this, -1, 0));
             Events.register('SPECIAL-KEY-ARROW-RIGHT', this, _.bind(this.step, this, 0, 1));
             Events.register('SPECIAL-KEY-ARROW-DOWN', this, _.bind(this.step, this, 1, 0));
+
         },
 
         setup: function() {
             this.populateWithCells();
             this.setCurrent(0,0);
+            CellController.setColour('white');
         },
 
         findCell: function(row,col) {
@@ -68,6 +70,7 @@ define([
 
             this.forEachCell(function(r,c,cell) {
                 matrixElm.appendChild(cell.getElement());
+                CellController.deAnimate(cell);
                 CellController.setBlankSpritePosition(cell);
             })
         },
@@ -91,7 +94,7 @@ define([
         },
 
         backSpace: function() {
-            if (!this.atFirstCell())
+            if (!this.atFirstCell() && this._currentPosition[1] != 0)
             {
                 this.step(0, -1);
                 //this.getCurrentCell().deAnimate();
@@ -102,6 +105,7 @@ define([
         insert: function() {
             this.pushLine();
         },
+
 
         step: function(rowMod, colMod) {
 
@@ -114,8 +118,11 @@ define([
                 newCol = 0;
             }
             else if (newRow == 40) {
-                // scroll down... maybe out of scope for this time, so;
                 newRow = 39;
+            }
+            else if (newCol == -1) {
+                newRow -= 1;
+                newCol = 39;
             }
 
             this.setCurrent(newRow, newCol);
@@ -185,7 +192,17 @@ define([
             for (var c=start; c > colN-1; c--) {
                 fn(c, this.findCell(rowN, c), this);
             }
-        }
+        },
+
+        onReset: function() {
+            this.deAnimateAll();
+        },
+
+        deAnimateAll: function() {
+            this.forEachCell(function(r,c,e) {
+                CellController.deAnimate(e);
+        })
+    }
 
     };
 });
