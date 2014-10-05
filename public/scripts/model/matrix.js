@@ -42,4 +42,4 @@ define(['model/cell'], function(Cell) {
 
     });
 
-})
+});

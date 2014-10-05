@@ -24,6 +24,9 @@ define([
                 $('#toggle-music').click(_.bind(this.toggleMusic, this));
             },
 
+            /**
+             * Initialize the controllers that listens for events
+             */
             startApp: function() {
                 Mediator.init();
                 MatrixController.init();
@@ -32,26 +35,41 @@ define([
                 RecordingController.init();
             },
 
+            /**
+             * Reset everyting
+             */
             reset: function() {
                 MatrixController.setup();
                 RecordingController.clear();
             },
 
+            /**
+             * Play the current message
+             */
             play: function() {
                 MatrixController.setup();
                 RecordingController.replay();
             },
 
+            /**
+             * Dump the current message to the console as an array
+             */
             dump: function() {
                 RecordingController.dump();
             },
 
+            /**
+             * Toggles music - sorry for party rocking!
+             */
             toggleMusic: function() {
                 var soundElement = document.getElementById('music');
                 if (!soundElement.paused) {
                     soundElement.pause();
-                    soundElement.currentTime = 0;
-                    soundElement.value = "Turn music on";
+                    document.getElementById('toggle-music').value = 'Turn music on';
+                }
+                else {
+                    soundElement.play();
+                    document.getElementById('toggle-music').value = 'Turn music off';
                 }
             }
 

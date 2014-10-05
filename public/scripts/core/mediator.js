@@ -10,6 +10,10 @@ define(['lib/events'], function(Events) {
                 Events.register('INCOMING_STROKE', this, _.bind(this.handleKey, this));
             },
 
+            /**
+             * Splits the stroke "stream" so that ordinary keys uses separate events from the special keys.
+             * @param strokeInfo
+             */
             handleKey: function(strokeInfo) {
                 if (strokeInfo) {
                     if (strokeInfo.offset) {

@@ -5,6 +5,11 @@ define(['controller/animation-controller'], function(AnimationController) {
         _currentColour: 'white',
         _isAnimated: false,
 
+        /**
+         * Apply normal characters
+         * @param cell The cell to apply character to
+         * @param strokeInfo Object that holds information about the keystroke
+         */
         applyChar: function(cell, strokeInfo) {
             var offsetx = strokeInfo.offset[0] * 16;
             var offsety = strokeInfo.offset[1] * 16;
@@ -17,10 +22,19 @@ define(['controller/animation-controller'], function(AnimationController) {
             }
         },
 
+        /**
+         * Sets the background to a blank space
+         * @param cell
+         */
         setBlankSpritePosition: function(cell) {
             $(cell.getElement()).css('background-position', '-0px -16px');
         },
 
+        /**
+         * Copy all values of one cell element to another
+         * @param sourceCell
+         * @param destCell
+         */
         copyCell: function(sourceCell, destCell) {
             var sourceElem = sourceCell.getElement();
             var attributes = $(sourceElem).prop("attributes");
@@ -35,10 +49,19 @@ define(['controller/animation-controller'], function(AnimationController) {
             } */
         },
 
+        /**
+         * Sets the colour of the cell (character)
+         * @param colour
+         */
         setColour: function(colour) {
             this._currentColour = colour;
         },
 
+        /**
+         * Initiates animation of a character
+         * @param cell
+         * @param forceSetOrigX
+         */
         animate: function(cell, forceSetOrigX) {
             this._isAnimated = true;
             var $elm = $(cell.getElement());
@@ -54,12 +77,14 @@ define(['controller/animation-controller'], function(AnimationController) {
             AnimationController.startAnimation();
         },
 
+        /**
+         * Stop animating a cell
+         * @param cell
+         */
         deAnimate: function(cell) {
             $(cell.getElement()).removeClass("animated");
             this._isAnimated = false;
         }
-
-
 
     };
 

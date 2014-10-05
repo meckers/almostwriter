@@ -1,5 +1,5 @@
 require:
-    - play
+    - play 1.2.3
     - commons-io -> commons-io 2.0.1:
           force: true
     - org.lightcouch -> lightcouch 0.0.6

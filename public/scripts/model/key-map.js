@@ -103,7 +103,8 @@ define(function() {
         '220+al' : StrokeInfo('€', [0,28]),
         '221+al' : StrokeInfo(']', [0,29])
 
-        // ©@£$∞§|[]≈±
+
+        // from old code:
 /*
  '@': [0,0],
  'A': [0,1], 'B': [0,2], 'C': [0,3],

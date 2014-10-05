@@ -6,6 +6,9 @@ define(['model/matrix', 'controller/cell-controller', 'lib/events'], function(Ma
             this.listen();
         },
 
+        /**
+         * Listen for key combinations that changes colour
+         */
         listen: function() {
             Events.register('SPECIAL-KEY-COLOUR-WHITE', this, _.bind(this.colour, this, 'white'));
             Events.register('SPECIAL-KEY-COLOUR-YELLOW', this, _.bind(this.colour, this, 'yellow'));

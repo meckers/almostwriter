@@ -16,6 +16,9 @@ define([
             this.setup();
         },
 
+        /**
+         * Listen for incoming keystrokes
+         */
         listen: function() {
             Events.register('NORMAL-CHAR', this, _.bind(this.writeChar, this));
             Events.register('SPECIAL-KEY-BACKSPACE', this, _.bind(this.backSpace, this));
@@ -28,24 +31,47 @@ define([
 
         },
 
+        /**
+         * Initialize the matrix
+         */
         setup: function() {
             this.populateWithCells();
             this.setCurrent(0,0);
             CellController.setColour('white');
         },
 
+        /**
+         * Finds a single cell in the matrix
+         * @param row
+         * @param col
+         * @returns {*}
+         */
         findCell: function(row,col) {
             return this._matrix.getCells()[row][col];
         },
 
+        /**
+         * Finds a cell with the help of a position array
+         * @param pos
+         * @returns {*}
+         */
         findCellByPosition: function(pos) {
             return this._matrix.getCells()[pos[0]][pos[1]];
         },
 
+        /**
+         * Gets a row from the matrix
+         * @param row
+         * @returns {*}
+         */
         getRow: function(row) {
             return this._matrix.getCells()[row];
         },
 
+        /**
+         * Executes a function for each of the cells in the matrix
+         * @param fn
+         */
         forEachCell: function(fn) {
 
             var cells = this._matrix.getCells();
@@ -59,10 +85,17 @@ define([
             }
         },
 
+        /**
+         * Gets the matrix element
+         * @returns {Element}
+         */
         getMatrixElement: function() {
             return this._matrix.getElement();
         },
 
+        /**
+         * Populates the matrix with cells
+         */
         populateWithCells: function() {
 
             var matrixElm = this.getMatrixElement();
@@ -75,24 +108,37 @@ define([
             })
         },
 
+        /**
+         * Sets the current position and cell
+         * @param row
+         * @param col
+         */
         setCurrent: function(row, col) {
-            //$(this._currentCell.getElement()).css('opacity', '1');
             this._currentCell = this.findCell(row,col);
             this._currentPosition = [row,col];
             CursorController.setCell(this._currentCell);
-            //$(this._currentCell.getElement()).css('opacity', '0.5');
         },
 
+        /**
+         * Writes a character to the matrix
+         * @param strokeInfo
+         */
         writeChar: function(strokeInfo) {
-            //this._currentCell.apply(strokeInfo);
             CellController.applyChar(this._currentCell, strokeInfo);
             this.step(0, 1);
         },
 
+        /**
+         * Checks to see if the current position is in the top left corner
+         * @returns {boolean}
+         */
         atFirstCell: function() {
             return this._currentPosition[0] == 0 && this._currentPosition[1] == 0;
         },
 
+        /**
+         * Execute a backspace
+         */
         backSpace: function() {
             if (!this.atFirstCell() && this._currentPosition[1] != 0)
             {
@@ -102,11 +148,19 @@ define([
             }
         },
 
+        /**
+         * Insert a space (the opposite of backspace)
+         */
         insert: function() {
             this.pushLine();
         },
 
 
+        /**
+         * Move the current position within the matrix
+         * @param rowMod
+         * @param colMod
+         */
         step: function(rowMod, colMod) {
 
             var curPos = this._currentPosition;
@@ -128,6 +182,9 @@ define([
             this.setCurrent(newRow, newCol);
         },
 
+        /**
+         * Shifts the cells after the current column position - in the current row
+         */
         pullLine: function() {
             try {
                 this.untilEndOfRow(_.bind(this.shiftCellsLeft, this));
@@ -137,9 +194,13 @@ define([
             }
         },
 
+        /**
+         * Shifts the cells after the current column position - in the current row
+         */
         pushLine: function() {
             this.fromEndOfRow(_.bind(this.shiftCellsRight, this));
         },
+
 
         shiftCellsRight: function(i, e) {
             if (i > this._currentPosition[1]) {
@@ -167,37 +228,51 @@ define([
             }
         },
 
+        /**
+         * Gets the current column position
+         * @returns {*}
+         */
         getCurrentCol: function() {
             return this._currentPosition[1];
         },
 
+        /**
+         * Gets the current row position
+         * @returns {*}
+         */
         getCurrentRow: function() {
             return this._currentPosition[0];
         },
 
+        /**
+         * Executes a function for each of the subsequent cells in the current row
+         * @param fn
+         */
         untilEndOfRow: function(fn) {
             var start = this.getCurrentCol();
             var rowN = this.getCurrentRow();
             var row = this._matrix.getRow(rowN);
-            for (c=start; c < row.length; c++) {
+            for (var c=start; c < row.length; c++) {
                 fn(c, this.findCell(rowN, c), this);
             }
         },
 
+        /**
+         * Executes a function for each of the previous cells in the current row
+         * @param fn
+         */
         fromEndOfRow: function(fn) {
             var colN = this.getCurrentCol();
             var rowN = this.getCurrentRow();
             var start = 39;
-            var row = this._matrix.getRow(rowN);
             for (var c=start; c > colN-1; c--) {
                 fn(c, this.findCell(rowN, c), this);
             }
         },
 
-        onReset: function() {
-            this.deAnimateAll();
-        },
-
+        /**
+         * Stop animation of all cells
+         */
         deAnimateAll: function() {
             this.forEachCell(function(r,c,e) {
                 CellController.deAnimate(e);

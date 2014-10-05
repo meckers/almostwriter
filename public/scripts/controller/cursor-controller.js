@@ -6,6 +6,9 @@ define(function() {
         _interval: null,
         _cell: null,
 
+        /**
+         * Creates the cursor element
+         */
         createElement: function() {
             this._element = $("<div></div>");
             this._element.css({
@@ -18,12 +21,20 @@ define(function() {
             this.blink();
         },
 
+
+        /**
+         * Blink the cursor
+         */
         blink: function() {
             this.interval = window.setInterval(_.bind(function() {
                 this._element.css('display', this._element.css('display') == 'block' ? 'none' : 'block');
             }, this), 750);
         },
 
+        /**
+         * Assigns the cursor to a cell
+         * @param cell
+         */
         setCell: function(cell) {
 
             if (this._element == null) {
@@ -39,4 +50,4 @@ define(function() {
 
     }
 
-})
+});
