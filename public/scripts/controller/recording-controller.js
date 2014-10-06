@@ -41,12 +41,12 @@ define(['lib/events', 'core/demo-message'], function(Events, DemoMessage) {
          * Plays back the current message
          */
         replay: function() {
-                this._playing = true;
-                this._strokeIndex = 0;
-                var strokeCode = this._strokeCodes[this._strokeIndex];
-                if (strokeCode) {
-                    this.playStroke(strokeCode);
-                }
+            this._playing = true;
+            this._strokeIndex = 0;
+            var strokeCode = this._strokeCodes[this._strokeIndex];
+            if (strokeCode) {
+                this.playStroke(strokeCode);
+            }
         },
 
         /**

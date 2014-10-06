@@ -50,31 +50,3 @@ div.char-cell {
 .font-cav-of-sillahc {
     background-image: url(/public/images/cav_of_sillahc_x2_anim.png);
 }
-
-.colour-white {
-    background-color: #fff;
-}
-
-.colour-yellow {
-    background-color: yellow;
-}
-
-.colour-lightbrown {
-    background-color: #C49B39;
-}
-
-.colour-darkbrown {
-    background-color: #8C6508;
-}
-
-.colour-pink {
-    background-color: #FF8C8C;
-}
-
-.colour-darkgrey {
-    background-color: #525252;
-}
-
-.colour-mediumgrey {
-    background-color: #8A8A8A;
-}

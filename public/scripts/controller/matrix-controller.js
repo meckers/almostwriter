@@ -105,6 +105,7 @@ define([
                 matrixElm.appendChild(cell.getElement());
                 CellController.deAnimate(cell);
                 CellController.setBlankSpritePosition(cell);
+                CellController.assignColour(cell, 'white');
             })
         },
 

@@ -5,6 +5,16 @@ define(['controller/animation-controller'], function(AnimationController) {
         _currentColour: 'white',
         _isAnimated: false,
 
+        _colours: {
+            'white' : '#fff',
+            'yellow' : 'yellow',
+            'lightbrown' : '#C49B39',
+            'darkbrown' : '#8C6508',
+            'pink' : '#FF8C8C',
+            'darkgrey' : '#525252',
+            'mediumgrey' : '#8A8A8A'
+        },
+
         /**
          * Apply normal characters
          * @param cell The cell to apply character to
@@ -13,7 +23,10 @@ define(['controller/animation-controller'], function(AnimationController) {
         applyChar: function(cell, strokeInfo) {
             var offsetx = strokeInfo.offset[0] * 16;
             var offsety = strokeInfo.offset[1] * 16;
-            $(cell.getElement()).css('background-position', '-' + offsety + 'px -' + offsetx + 'px').addClass('colour-' + this._currentColour);
+            $(cell.getElement()).css({
+                'background-position' : '-' + offsety + 'px -' + offsetx + 'px',
+                'background-color' : this._colours[this._currentColour]
+            });
 
             if (strokeInfo.animate) {
                 this.animate(cell, true);
@@ -50,11 +63,22 @@ define(['controller/animation-controller'], function(AnimationController) {
         },
 
         /**
-         * Sets the colour of the cell (character)
+         * Sets the colour of subsequently added cells
          * @param colour
          */
         setColour: function(colour) {
             this._currentColour = colour;
+        },
+
+        /**
+         * Sets the colour of an individual cell
+         * @param cell
+         * @param colour
+         */
+        assignColour: function(cell, colour) {
+            $(cell.getElement()).css(
+                'background-colour', this._colours[colour]
+            );
         },
 
         /**
