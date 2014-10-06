@@ -1,11 +1,18 @@
 require(['core/almostwriter', 'core/extensions'], function(AlmostWriter) {
 
-    AlmostWriter.init();
-
     /**
      * Initiate the awesomeness!
      */
+    AlmostWriter.init();
+
+    /**
+     * Expose some global functions for debugging purposes.
+     */
     play = function() {
-        almostWriter.play();
+        AlmostWriter.play();
+    }
+
+    dump = function() {
+        AlmostWriter.dump();
     }
 })

@@ -33,6 +33,7 @@ h3 {
     width: 640px;
     height: 640px;
     margin: 0px;
+    border: 1px solid #404040;
 }
 
 div.char-cell {
@@ -42,18 +43,8 @@ div.char-cell {
     float:left;
 }
 
-#scroller {
-    position: relative;
-    background-color:black;
-    border: 1px solid red;
-    width: 640px;
-    height: 160px;
-    overflow: hidden;
-}
-
-#scroller .text {
-    color: white;
-    font-size: 100px;
+.instructions {
+    float: left;
 }
 
 .font-cav-of-sillahc {
