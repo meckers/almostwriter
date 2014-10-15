@@ -74,7 +74,7 @@ define(['lib/events', 'core/demo-message'], function(Events, DemoMessage) {
 
             Events.trigger("RECORDED_STROKE", strokeCode);
 
-            if (this._strokeIndex !== this._strokeCodes.length - 1) {
+            if (this._playing && this._strokeIndex !== this._strokeCodes.length - 1) {
                 this.playStroke(this._strokeCodes[++this._strokeIndex])
             }
         },
@@ -91,6 +91,7 @@ define(['lib/events', 'core/demo-message'], function(Events, DemoMessage) {
          * Clear the recorded strokes
          */
         clear: function() {
+            this._playing = false;
             this._strokeCodes = [];
         }
 

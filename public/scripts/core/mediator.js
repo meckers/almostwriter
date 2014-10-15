@@ -15,6 +15,7 @@ define(['lib/events'], function(Events) {
              * @param strokeInfo
              */
             handleKey: function(strokeInfo) {
+                console.log('handling key', strokeInfo);
                 if (strokeInfo) {
                     if (strokeInfo.offset) {
                         Events.trigger('NORMAL-CHAR', strokeInfo);
