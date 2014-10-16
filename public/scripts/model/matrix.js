@@ -38,6 +38,46 @@ define(['model/cell'], function(Cell) {
 
         getRow: function(r) {
             return this._cells[r];
+        },
+
+        /**
+         * Finds a single cell in the matrix
+         * @param row
+         * @param col
+         * @returns {*}
+         */
+        findCell: function(row,col) {
+            return this.getCells()[row][col];
+        },
+
+        /**
+         * Finds a cell with the help of a position array
+         * @param pos
+         * @returns {*}
+         */
+        findCellByPosition: function(pos) {
+            return this.getCells()[pos[0]][pos[1]];
+        },
+
+        /**
+         * Gets a row from the matrix
+         * @param row
+         * @returns {*}
+         */
+        getRow: function(row) {
+            return this.getCells()[row];
+        },
+
+        /**
+         * Executes a function for each of the cells in the matrix
+         * @param fn
+         */
+        forEachCell: function(fn) {
+            for (var r=0; r < this._height; r++) {
+                for (var c=0; c < this._width; c++) {
+                    fn(r, c, this._cells[r][c]);
+                }
+            }
         }
 
     });

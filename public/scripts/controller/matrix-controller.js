@@ -42,67 +42,14 @@ define([
         },
 
         /**
-         * Finds a single cell in the matrix
-         * @param row
-         * @param col
-         * @returns {*}
-         */
-        findCell: function(row,col) {
-            return this._matrix.getCells()[row][col];
-        },
-
-        /**
-         * Finds a cell with the help of a position array
-         * @param pos
-         * @returns {*}
-         */
-        findCellByPosition: function(pos) {
-            return this._matrix.getCells()[pos[0]][pos[1]];
-        },
-
-        /**
-         * Gets a row from the matrix
-         * @param row
-         * @returns {*}
-         */
-        getRow: function(row) {
-            return this._matrix.getCells()[row];
-        },
-
-        /**
-         * Executes a function for each of the cells in the matrix
-         * @param fn
-         */
-        forEachCell: function(fn) {
-
-            var cells = this._matrix.getCells();
-            var height = this._matrix.getHeight();
-            var width = this._matrix.getWidth();
-
-            for (var r=0; r < height; r++) {
-                for (var c=0; c < width; c++) {
-                    fn(r, c, cells[r][c]);
-                }
-            }
-        },
-
-        /**
-         * Gets the matrix element
-         * @returns {Element}
-         */
-        getMatrixElement: function() {
-            return this._matrix.getElement();
-        },
-
-        /**
          * Populates the matrix with cells
          */
         populateWithCells: function() {
 
-            var matrixElm = this.getMatrixElement();
+            var matrixElm = this._matrix.getElement();
             matrixElm.innerHTML = '';
 
-            this.forEachCell(function(r,c,cell) {
+            this._matrix.forEachCell(function(r,c,cell) {
                 matrixElm.appendChild(cell.getElement());
                 CellController.deAnimate(cell);
                 CellController.setBlankSpritePosition(cell);
@@ -116,7 +63,7 @@ define([
          * @param col
          */
         setCurrent: function(row, col) {
-            this._currentCell = this.findCell(row,col);
+            this._currentCell = this._matrix.findCell(row,col);
             this._currentPosition = [row,col];
             CursorController.setCell(this._currentCell);
         },
@@ -207,11 +154,23 @@ define([
             this.fromEndOfRow(_.bind(this.shiftCellsRight, this));
         },
 
+        // experimental, try this after refactoring is done.
+        shiftCells: function(i, e, inc) {
+            if (i > this._currentPosition[1]) {
+                var pos = [this._currentPosition[0], i + inc];
+                var nextCell = this._matrix.findCellByPosition(pos);
+                CellController.copyCell(nextCell, e);
+            }
+            else {
+                CellController.setBlankSpritePosition(e);
+            }
+        },
+
 
         shiftCellsRight: function(i, e) {
             if (i > this._currentPosition[1]) {
                 var pos = [this._currentPosition[0], i - 1];
-                var nextCell = this.findCellByPosition(pos);
+                var nextCell = this._matrix.findCellByPosition(pos);
                 CellController.copyCell(nextCell, e);
                 //cell.deAnimate();
             }
@@ -222,7 +181,7 @@ define([
 
         shiftCellsLeft: function(i, e) {
             var pos = [this._currentPosition[0], i + 1];
-            var nextCell = this.findCellByPosition(pos);
+            var nextCell = this._matrix.findCellByPosition(pos);
             if (nextCell !== undefined) {
                 CellController.copyCell(nextCell, e);
                 /*if (!nextCell.isAnimated) {
@@ -259,7 +218,7 @@ define([
             var rowN = this.getCurrentRow();
             var row = this._matrix.getRow(rowN);
             for (var c=start; c < row.length; c++) {
-                fn(c, this.findCell(rowN, c), this);
+                fn(c, this._matrix.findCell(rowN, c), this);
             }
         },
 
@@ -272,7 +231,7 @@ define([
             var rowN = this.getCurrentRow();
             var start = 39;
             for (var c=start; c > colN-1; c--) {
-                fn(c, this.findCell(rowN, c), this);
+                fn(c, this._matrix.findCell(rowN, c), this);
             }
         },
 
