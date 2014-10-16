@@ -23,6 +23,7 @@ define([
             Events.register('NORMAL-CHAR', this, _.bind(this.writeChar, this));
             Events.register('SPECIAL-KEY-BACKSPACE', this, _.bind(this.backSpace, this));
             Events.register('SPECIAL-KEY-INSERT', this, _.bind(this.insert, this));
+            Events.register('SPECIAL-KEY-CLEAR-SCREEN', this, _.bind(this.clearScreen, this));
 
             Events.register('SPECIAL-KEY-ARROW-LEFT', this, _.bind(this.step, this, 0, -1));
             Events.register('SPECIAL-KEY-ARROW-UP', this, _.bind(this.step, this, -1, 0));
@@ -135,6 +136,10 @@ define([
          */
         atFirstCell: function() {
             return this._currentPosition[0] == 0 && this._currentPosition[1] == 0;
+        },
+
+        clearScreen: function() {
+            console.log("clear screen");
         },
 
         /**
